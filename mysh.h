@@ -12,10 +12,10 @@
 #define MAX 256
 
 
-void redirection(char** commands, int i);
-void pipe(char** commands, inti);
-void background(char** commands, int i);
-char** parsing(char* CommandLine);
-void exec_command(char** command);
+void redirection_cmd(char** commands, int i);
+void pipe_cmd(char** commands, int i);
+void background_cmd(char** commands, int i);
+char** parsing_string(char* commandLine);
+void exec_cmd(char** command);
 
 #define chop(str) str[strlen(str)-1] = 0x00;

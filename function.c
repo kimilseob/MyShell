@@ -1,6 +1,5 @@
 #include "mysh.h"
 
-
 /////////////String Parsing/////////////////
 ////////////////////////////////////////////
 
@@ -15,13 +14,13 @@ char** parsing_string(char* commandLine)
 	token = strtok(commandLine, " ");
 	while(token != NULL)
 	{
-		tokens[count] = malloc(strlne(token)+1);
+		tokens[count] = malloc(strlen(token)+1);
 		strncpy(tokens[count],token,strlen(token)+1);
-		token = strtok(null, " ");
+		token = strtok(NULL, " ");
 		count++;
 	}
 	
-	tokens[count] = null;
+	tokens[count] = NULL;
 	return tokens;
 
 }
@@ -29,7 +28,7 @@ char** parsing_string(char* commandLine)
 
 //////////////execute command//////////////////
 
-void execute_command(char **commands)
+void exec_cmd(char **commands)
 {
 	int child_process;
 	int status;
@@ -50,12 +49,28 @@ void execute_command(char **commands)
 	else {
 		if((child_process = fork())==0){
 			//
+			while(commands[i]){
+				if(!strcmp(commands[i],">")){
+					redirection_cmd(commands, i);
+				}
+				else if(!strcmp(commands[i],"&")){
+					background_cmd(commands, i);
+				}
+				else if(!strcmp(commands[i],"|")){
+					pipe_cmd(commands,i );
+				}
+				i++;
+			}
+			if(execvp(commands[0],commands)==-1){
+				printf("%s : command not found\n",commands[0]);
+				exit(1);
+			}
+		}
+		else if(child_process < 0){
+			printf("fork error\n");
+			exit(1);
 		}
 
-
-
 	}
-
-
 
 }
