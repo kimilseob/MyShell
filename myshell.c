@@ -16,15 +16,15 @@ int main()
 	{
 		printf("$ ");
 		fgets(commandLine, 255, stdin);
-		chop(commandLine);
-		command = parsing(commandLine);
-
+		command = parsing_string(commandLine);
+	
 		if(strncmp(commandLine, "quit" , 4) == 0)
 		{	
 			exit(0);	
 		}
-		else{
-			exec_command(command);
+		else
+		{
+			exec_cmd(command);
 		}
 	}
 }

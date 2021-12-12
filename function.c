@@ -33,7 +33,7 @@ void exec_cmd(char **commands)
 	int child_process;
 	int status;
 	int i=0;
-	char *dir;
+	char dir[256];
 
 	if(!strcmp(commands[0], "cd")){
 
@@ -43,12 +43,12 @@ void exec_cmd(char **commands)
 		chdir(commands[1]);
 	}
 	else if(!strcmp(commands[0], "pwd")){
-		printf("Working Directory : %s\n" , getcwd(dir,MAX));
+		getcwd(dir,MAX);
+		printf("Working Directory : %s\n" ,dir);
 	}
 
 	else {
 		if((child_process = fork())==0){
-			//
 			while(commands[i]){
 				if(!strcmp(commands[i],">")){
 					redirection_cmd(commands, i);
@@ -74,3 +74,14 @@ void exec_cmd(char **commands)
 	}
 
 }
+
+void redirection_cmd(char** commands , int i)
+{
+}
+void background_cmd(char** commands , int i)
+{
+}
+void pipe_cmd(char** commands , int i)
+{
+}
+
